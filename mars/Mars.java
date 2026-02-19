@@ -154,12 +154,36 @@ public class Mars {
                 break;
             }
 
-            // A compléter ...
+            case SUB: {
+                int sourceAddr = resolveValueA(p, instr, memory);
+                int targetIndex = resolveValueB(p, instr, memory);
+                
+                Instruction source = memory.read(sourceAddr);
+                Instruction target = memory.read(targetIndex).copy();
+
+                if (instr.getModeA() == Mode.IMMEDIATE) {
+                    // On soustrait A de la source au champ B de la cible
+                    int resultB = Math.floorMod(target.getB() - source.getA(), CORE_SIZE);
+                    target.setB(resultB);
+                } 
+                else {
+                    // Soustraction A-A et B-B
+                    int resultA = Math.floorMod(target.getA() - source.getA(), CORE_SIZE);
+                    int resultB = Math.floorMod(target.getB() - source.getB(), CORE_SIZE);
+                    
+                    target.setA(resultA);
+                    target.setB(resultB);
+                }
+
+                memory.write(targetIndex, target);
+                break;
+            }
                 
         }
     }
 
 }
+
 
 
 
