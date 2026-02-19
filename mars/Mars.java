@@ -101,8 +101,7 @@ public class Mars {
 
         switch(instr.getOpcode()) {
             case DAT:
-            // Le processus meurt
-            break;
+            return False;
 
             /*
             Dans le MOV on copie 'instruction pointée par A dans à l'adresse donnée
@@ -161,6 +160,7 @@ public class Mars {
     }
 
 }
+
 
 
 
